@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    
+  
+    <title> Real-time CHATBOT </title>
+  
+  
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+  
+    <!--한글폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  
+    
+    <!-- font awesome style -->
+    <link href="static/css/font-awesome.min.css" rel="stylesheet" />
+  
+    <!-- Custom styles for this template -->
+    <link href="static/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="static/css/responsive.css" rel="stylesheet" />
+  
+</head>
+
+<body>
+    <div class="overlay" id="overlay">
+      </div>
+      <!--팝업창 2개 설정-->
+      <script>
+        function openPopup() {
+          var width = 400;
+          var height = 300;
+    
+          var leftPosition = (window.screen.width - width) / 2;
+          var topPosition = (window.screen.height - height) / 2;
+    
+          var popupWindow1 = window.open("", "popupWindow1", "width=" + width + ",height=" + height + ",left=" + leftPosition + ",top=" + topPosition);
+    
+          popupWindow1.document.write(`
+          <!DOCTYPE html>
+          <html lang="ko">
+          <head>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>팝업창 1</title>
+            <style>
+              body { 
+                font-family: "Gowun Batang", sans-serif; 
+                text-align: center; 
+                padding: 20px; 
+              }
+              .text-box {
+                border: 1px solid #c4c4c4;
+                background-color: #f0f0f0;
+                padding: 20px;
+                margin-bottom: 20px;
+                display: block;
+              }
+              .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px; 
+              }
+              button { 
+                font-family: "Gowun Batang", sans-serif; 
+                padding: 8px 16px; 
+                font-size: 14px; 
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+              }
+              button:hover {
+                background-color: #0056b3;
+              }
+              h1 {
+                font-size: 17px;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>채팅을 진행하기 전 동의사항</h1>
+            <div class="text-box">
+              <p>본 채팅의 모든 내용은 기록되며, 본 연구의 데이터 수집에 사용됩니다. 분석을 통해 얻은 인사이트는 사용자의 동의 없이 발표될 수 있습니다. 이에 동의하십니까?</p>
+            </div>
+            <div class="button-container">
+              <button id="agreeBtn">동의</button>
+              <button id="disagreeBtn">동의하지 않음</button>
+            </div>
+          </body>
+          </html>
+          `);
+    
+          popupWindow1.document.close(); // 문서의 쓰기를 완료하고 해석을 시작하게 함
+    
+          popupWindow1.onload = function() {
+            popupWindow1.document.getElementById('agreeBtn').onclick = function() {
+              popupWindow1.close();
+              setTimeout(openSecondPopup, 100); // 첫 번째 팝업 창이 닫힌 후 두 번째 팝업 창을 엽니다.
+            };
+            popupWindow1.document.getElementById('disagreeBtn').onclick = function() {
+              popupWindow1.close();
+              alert('동의하지 않으셨습니다. 동의하지 않으면 채팅을 진행할 수 없습니다.');
+              
+            };
+          };
+        }
+    
+        function openSecondPopup() {
+          var width = 400;
+          var height = 300;
+    
+          var leftPosition = (window.screen.width - width) / 2;
+          var topPosition = (window.screen.height - height) / 2;
+    
+          var popupWindow2 = window.open("", "popupWindow2", "width=" + width + ",height=" + height + ",left=" + leftPosition + ",top=" + topPosition);
+    
+          popupWindow2.document.write(`
+          <!DOCTYPE html>
+          <html lang="ko">
+          <head>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>팝업창 2</title>
+            <style>
+              body { 
+                font-family: "Gowun Batang", sans-serif; 
+                text-align: center; 
+                padding: 20px; 
+              }
+              .text-box {
+                border: 1px solid #c4c4c4;
+                background-color: #f0f0f0;
+                padding: 20px;
+                margin-bottom: 20px;
+                display: block; 
+              }
+              .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+              }
+              button { 
+                font-family: "Gowun Batang", sans-serif; 
+                padding: 8px 16px; 
+                font-size: 14px; 
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+              }
+              button:hover {
+                background-color: #0056b3;
+              }
+              h1 {
+                font-size: 17px; 
+              }
+            </style>
+          </head>
+          <body>
+            <h1>채팅주제 선택</h1>
+            <div class="text-box">
+              <p>어떤 주제의 채팅을 진행할 지 선택해주세요. 인공지능과 일상대화를 나눌지, 일정 주제 기반의 대화를 할 지 정해주세요.</p>
+            </div>
+            <div class="button-container">
+              <button id="talkBtn">일상대화</button>
+              <button id="taskBtn">주제 기반</button>
+            </div>
+          </body>
+          </html>
+          `);
+    
+          popupWindow2.document.close(); // 문서의 쓰기를 완료하고 해석을 시작하게 함
+    
+          popupWindow2.onload = function() {
+        popupWindow2.document.getElementById('talkBtn').onclick = function() {
+          alert('일상대화를 선택하셨습니다.');
+          popupWindow2.close();
+          window.removeOverlay(); // 오버레이 제거
+                     // 오버레이 제거
+        };
+        popupWindow2.document.getElementById('taskBtn').onclick = function() {
+          alert('주제 기반 대화를 선택하였습니다.');
+          popupWindow2.close();
+          window.removeOverlay();
+        };
+      };
+    }
+
+        function removeOverlay() {
+      document.getElementById('overlay').classList.add('hidden');
+    }
+    
+        // 페이지가 로드될 때 openPopup 함수를 호출합니다.
+        window.onload = openPopup;
+      </script>
+
+
+    <div class="hero_area">
+      <!-- header section strats -->
+      <header class="header_section">
+        <div class="header_top">
+          <div class="container-fluid ">
+            <div class="contact_nav", style="display: flex; justify-content: center; align-items: center; height: 100%;">
+            </div>
+          </div>
+        </div>
+        <div class="header_bottom">
+          <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand" href="https://hli.skku.edu/", style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+                <span style="margin-left: 15px;">
+                     Real-Time Streaming ChatBot
+                </span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <!-- end header section --> 
+
+      <div class="container">
+        <h3 class=" text-center">
+
+
+        </h3>
+              <div class="inbox_msg">
+                <div class="mesgs">
+                  <div class="msg_history" id="msg_history">
+                    <!--보내는 메세지-->
+                    <div class="outgoing_msg">
+                      <div class="sent_msg">
+                        <p>첫번째 예시 메시지입니다. </p>
+                        <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+                    </div>
+                    <!--Ai 답장-->
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://cdn-icons-png.flaticon.com/512/5043/5043967.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                          <div class="received_withd_msg">
+                            <p>샘플 답장입니다. 
+                              </p>
+                            <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="type_msg">
+                    <div class="input_msg_write">
+                      <input type="text" id="write_msg"class="write_msg" placeholder="Type a message" />
+                      <button class="msg_send_btn" id="msg_send_btn" type="button" onclick="sendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              <p class="text-center top_spac"><a target="_blank" href="https://hli.skku.edu/">SungKyunKwan University</a></p>
+              
+            </div>
+    <script>
+        
+        function sendMessage() {
+    var messageInput = document.getElementById('write_msg');
+    var messageText = messageInput.value;
+    if (messageText.trim() === "") {
+      return;
+    }
+
+    var msgHistory = document.getElementById('msg_history');
+
+    var outgoingMsg = document.createElement('div');
+    outgoingMsg.className = 'outgoing_msg';
+
+    var sentMsg = document.createElement('div');
+    sentMsg.className = 'sent_msg';
+    sentMsg.innerHTML = '<p>' + messageText + '</p><span class="time_date">' + getCurrentTime() + '</span>';
+
+    outgoingMsg.appendChild(sentMsg);
+
+    msgHistory.appendChild(outgoingMsg);
+    messageInput.value = "";
+    msgHistory.scrollTop = msgHistory.scrollHeight;
+  }
+
+        
+        function getCurrentTime() {
+                    var now = new Date();
+                    var hours = now.getHours();
+                    var minutes = now.getMinutes();
+                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12;
+                    minutes = minutes < 10 ? '0' + minutes : minutes;
+        
+                    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    var month = monthNames[now.getMonth()];
+                    var day = now.getDate();
+        
+                    return hours + ':' + minutes + ' ' + ampm + ' | ' + month + ' ' + day;
+                }
+        document.getElementById("write_msg").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default action (form submission)
+                document.getElementById("msg_send_btn").click(); // Trigger button click
+            }
+        });
+
+        
+        
+            </script>
+</body>
+</html>
+
